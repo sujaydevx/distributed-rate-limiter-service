@@ -1,0 +1,11 @@
+global:
+  scrape_interval: 5s
+
+scrape_configs:
+  - job_name: 'simple-rate-limiter'
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      # host.docker.internal lets the Prometheus container reach the app running
+      # on your host machine (e.g. via `./gradlew bootRun`), since the app itself
+      # isn't part of this docker-compose file.
+      - targets: ['host.docker.internal:8080']
