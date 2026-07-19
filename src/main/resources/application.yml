@@ -8,11 +8,10 @@ spring:
     redis:
       host: ${REDIS_HOST:localhost}
       port: ${REDIS_PORT:6379}
+      timeout: 300ms
 
-# ── Everything about the rate limiter's behavior lives here — change the
-#    algorithm or the limits without touching any code. ──────────────────────
 rate-limiter:
-  algorithm: TOKEN_BUCKET # or FIXED_WINDOW
+  algorithm: TOKEN_BUCKET # FIXED_WINDOW | TOKEN_BUCKET | SLIDING_WINDOW
 
   fixed-window:
     max-requests: 10
@@ -20,10 +19,23 @@ rate-limiter:
 
   token-bucket:
     capacity: 10
-    refill-rate: 2 # tokens added per second
+    refill-rate: 2
 
-# ── Exposes /actuator/health and /actuator/prometheus for the observability
-#    stack (Prometheus scrapes the second one every few seconds). ────────────
+  sliding-window:
+    max-requests: 10
+    window-seconds: 60
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      redisRateLimiter:
+        sliding-window-size: 10
+        sliding-window-type: COUNT_BASED
+        failure-rate-threshold: 50
+        wait-duration-in-open-state: 5s
+        permitted-number-of-calls-in-half-open-state: 3
+        automatic-transition-from-open-to-half-open-enabled: true
+
 management:
   endpoints:
     web:

@@ -1,4 +1,4 @@
-package com.fresher.ratelimiter.config;
+package com.sujay.ratelimiter.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
@@ -10,11 +10,12 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  */
 @ConfigurationProperties(prefix = "rate-limiter")
 public record RateLimiterProperties(
-        String algorithm,          // "FIXED_WINDOW" or "TOKEN_BUCKET"
+        String algorithm,
         FixedWindow fixedWindow,
-        TokenBucket tokenBucket
+        TokenBucket tokenBucket,
+        SlidingWindow slidingWindow
 ) {
     public record FixedWindow(int maxRequests, int windowSeconds) {}
-
     public record TokenBucket(int capacity, double refillRate) {}
+    public record SlidingWindow(int maxRequests, int windowSeconds) {}
 }

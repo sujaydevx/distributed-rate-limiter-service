@@ -1,4 +1,4 @@
-package com.fresher.ratelimiter.model;
+package com.sujay.ratelimiter.model;
 
 /**
  * The outcome of one rate-limit check.
@@ -7,5 +7,11 @@ package com.fresher.ratelimiter.model;
  * @param remaining        how many requests this client has left in the current window/bucket
  * @param retryAfterSeconds how long the client should wait before trying again (0 if allowed)
  */
-public record RateLimitResult(boolean allowed, long remaining, long retryAfterSeconds) {
+public record RateLimitResult(
+        boolean allowed,
+        long remaining,
+        long limit,
+        long retryAfterSeconds,
+        String algorithm
+) {
 }

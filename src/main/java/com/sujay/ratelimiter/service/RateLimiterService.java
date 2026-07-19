@@ -1,6 +1,6 @@
-package com.fresher.ratelimiter.service;
+package com.sujay.ratelimiter.service;
 
-import com.fresher.ratelimiter.model.RateLimitResult;
+import com.sujay.ratelimiter.model.RateLimitResult;
 
 /**
  * Anything that can answer one question: "should this client's request be allowed?"

@@ -1,7 +1,7 @@
-package com.fresher.ratelimiter.service;
+package com.sujay.ratelimiter.service;
 
-import com.fresher.ratelimiter.config.RateLimiterProperties;
-import com.fresher.ratelimiter.model.RateLimitResult;
+import com.sujay.ratelimiter.config.RateLimiterProperties;
+import com.sujay.ratelimiter.model.RateLimitResult;
 import io.micrometer.core.instrument.simple.SimpleMeterRegistry;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
