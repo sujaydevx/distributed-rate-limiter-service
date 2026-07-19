@@ -1,0 +1,40 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.5.12'
+    id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'com.fresher'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+// Every dependency below has exactly one job — nothing included "just in case."
+dependencies {
+    // Web: REST controller + servlet Filter
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    // Redis: the shared store every app instance reads/writes the same counters from
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+
+    // Actuator: exposes /actuator/health and /actuator/prometheus
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+
+    // Micrometer + Prometheus: turns our counters into metrics Prometheus can scrape
+    implementation 'io.micrometer:micrometer-registry-prometheus'
+
+    // Testing: JUnit 5 + Mockito, bundled together in this one starter
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
